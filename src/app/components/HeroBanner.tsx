@@ -1,4 +1,5 @@
 import { motion } from 'motion/react';
+import { abImages } from '../images';
 
 export function HeroBanner() {
   return (
@@ -7,7 +8,7 @@ export function HeroBanner() {
       <div 
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1685687919836-6c15deb19a54?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVnYW50JTIwd2VkZGluZyUyMGNvdXBsZSUyMGVtYnJhY2UlMjBzdW5zZXR8ZW58MXx8fHwxNzc0MTQ4NTI5fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral')`,
+          backgroundImage: `url('${abImages[10]?.url}')`,
           filter: 'blur(3px)',
           transform: 'scale(1.1)',
         }}

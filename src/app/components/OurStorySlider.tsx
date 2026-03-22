@@ -4,23 +4,13 @@ import { motion } from 'motion/react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
+import { abImages, mauImages } from '../images';
+
 const storySlides = [
-  {
-    id: 1,
-    image: 'https://images.unsplash.com/photo-1679152836379-e51b48cc71fb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3ZWRkaW5nJTIwZmlyc3QlMjBkYXRlJTIwY29mZmVlJTIwcm9tYW50aWN8ZW58MXx8fHwxNzc0MTQ4NjQyfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
-  },
-  {
-    id: 2,
-    image: 'https://images.unsplash.com/photo-1768508663535-6ce5c952795b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3ZWRkaW5nJTIwbG92ZSUyMHN0b3J5JTIwcm9tYW50aWMlMjBtb21lbnRzfGVufDF8fHx8MTc3NDE0ODY0MXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
-  },
-  {
-    id: 3,
-    image: 'https://images.unsplash.com/photo-1564591167348-6a45f42dc223?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3ZWRkaW5nJTIwY291cGxlJTIwdHJhdmVsaW5nJTIwYWR2ZW50dXJlfGVufDF8fHx8MTc3NDE0ODY0M3ww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
-  },
-  {
-    id: 4,
-    image: 'https://images.unsplash.com/photo-1611785668525-061a2b077355?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3ZWRkaW5nJTIwcHJvcG9zYWwlMjBlbmdhZ2VtZW50JTIwcmluZ3xlbnwxfHx8fDE3NzQxNDg2NDJ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral'
-  }
+  { id: 1, image: abImages[0]?.url },
+  { id: 2, image: mauImages[0]?.url },
+  { id: 3, image: abImages[2]?.url },
+  { id: 4, image: mauImages[2]?.url }
 ];
 
 export function OurStorySlider() {

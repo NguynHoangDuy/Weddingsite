@@ -3,38 +3,13 @@ import { motion, AnimatePresence } from 'motion/react';
 import Masonry from 'react-responsive-masonry';
 import { X } from 'lucide-react';
 
-const photos = [
-  {
-    id: 1,
-    url: 'https://images.unsplash.com/photo-1772241824154-ce6e7c985ff9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3ZWRkaW5nJTIwY2VyZW1vbnklMjBlbGVnYW50JTIwY291cGxlfGVufDF8fHx8MTc3NDE0ODI5N3ww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-    caption: 'Our Beautiful Ceremony'
-  },
-  {
-    id: 2,
-    url: 'https://images.unsplash.com/photo-1768777270963-8289ea9d870d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3ZWRkaW5nJTIwcmVjZXB0aW9uJTIwZGVjb3JhdGlvbiUyMGZsb3dlcnN8ZW58MXx8fHwxNzc0MTQ4Mjk4fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-    caption: 'Reception Details'
-  },
-  {
-    id: 3,
-    url: 'https://images.unsplash.com/photo-1765615201173-0ea7dcadc4bb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3ZWRkaW5nJTIwY291cGxlJTIwZGFuY2luZyUyMGNlbGVicmF0aW9ufGVufDF8fHx8MTc3NDE0ODI5OHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-    caption: 'First Dance'
-  },
-  {
-    id: 4,
-    url: 'https://images.unsplash.com/photo-1737619043903-0668dc6d5b19?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3ZWRkaW5nJTIwcmluZ3MlMjBib3VxdWV0JTIwZGV0YWlsc3xlbnwxfHx8fDE3NzQxNDgyOTl8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-    caption: 'The Rings'
-  },
-  {
-    id: 5,
-    url: 'https://images.unsplash.com/photo-1578013161233-99253c8e4caa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxicmlkZSUyMGdyb29tJTIwb3V0ZG9vciUyMG5hdHVyZXxlbnwxfHx8fDE3NzQxNDgyOTl8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-    caption: 'Nature Portraits'
-  },
-  {
-    id: 6,
-    url: 'https://images.unsplash.com/photo-1696271026697-4f8da917e0d8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3ZWRkaW5nJTIwdmVudWUlMjBzdW5zZXQlMjBnb2xkZW4lMjBob3VyfGVufDF8fHx8MTc3NDE0ODMwMHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-    caption: 'Golden Hour Magic'
-  }
-];
+import { abImages, mauImages } from '../images';
+
+const photos = [...abImages, ...mauImages].map((img, index) => ({
+  id: img.id,
+  url: img.url,
+  caption: `Memory ${index + 1}`
+}));
 
 export function PhotoGallery() {
   const [selectedPhoto, setSelectedPhoto] = useState<typeof photos[0] | null>(null);
