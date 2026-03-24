@@ -1,17 +1,13 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { X, ChevronLeft, ChevronRight, ZoomIn } from 'lucide-react';
 import { mauImages } from '../images';
 
 const photos = mauImages.map(img => ({ id: img.id, url: img.url }));
 const TOTAL = photos.length;
-const PAGE = 12;
 
 export function PhotoGallery() {
   const [selectedIdx, setSelectedIdx] = useState(null);
-  const [count, setCount] = useState(PAGE);
-  const visible = photos.slice(0, count);
 
   const goNext = useCallback(
     () => setSelectedIdx(i => (i + 1) % TOTAL),
@@ -91,90 +87,69 @@ export function PhotoGallery() {
           </div>
         </motion.div>
 
-        {/* ── Masonry grid ── */}
+        {/* ── CSS columns grid (no JS layout, no reflow jank) ── */}
         <motion.div
+          className="columns-2 sm:columns-3 lg:columns-4"
+          style={{ columnGap: 14 }}
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <ResponsiveMasonry columnsCountBreakPoints={{ 0: 2, 640: 3, 1024: 4 }}>
-            <Masonry gutter="14px">
-              {visible.map((photo, index) => (
-                <div
-                  key={photo.id}
-                  className="group"
-                  style={{ position: 'relative', overflow: 'hidden', borderRadius: 8, cursor: 'pointer' }}
-                  onClick={() => setSelectedIdx(index)}
-                >
-                  <img
-                    src={photo.url}
-                    alt=""
-                    loading="lazy"
-                    decoding="async"
-                    draggable={false}
-                    style={{
-                      width: '100%', height: 'auto', display: 'block',
-                      transition: 'transform 0.5s ease',
-                    }}
-                    onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.07)'; }}
-                    onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; }}
-                  />
-
-                  {/* Hover overlay */}
-                  <div
-                    className="group-hover:opacity-100"
-                    style={{
-                      position: 'absolute', inset: 0,
-                      background: 'linear-gradient(to top, rgba(44,40,37,0.52) 0%, transparent 55%)',
-                      opacity: 0,
-                      transition: 'opacity 0.35s ease',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      pointerEvents: 'none',
-                    }}
-                  >
-                    <div style={{
-                      width: 38, height: 38, borderRadius: '50%',
-                      border: '1px solid rgba(255,255,255,0.65)',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      color: 'rgba(255,255,255,0.85)',
-                    }}>
-                      <ZoomIn size={15} strokeWidth={1.5} />
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </Masonry>
-          </ResponsiveMasonry>
-        </motion.div>
-
-        {/* ── Load More ── */}
-        {count < TOTAL && (
-          <div style={{ textAlign: 'center', marginTop: 52 }}>
-            <button
-              onClick={() => setCount(c => Math.min(c + PAGE, TOTAL))}
+          {photos.map((photo, index) => (
+            <div
+              key={photo.id}
+              className="group"
               style={{
-                fontFamily: 'Crimson Text, serif',
-                fontSize: 13,
-                letterSpacing: '0.22em',
-                textTransform: 'uppercase',
-                color: '#C9A96E',
-                border: '1px solid #C9A96E',
-                background: 'transparent',
-                padding: '12px 36px',
-                borderRadius: 2,
+                breakInside: 'avoid',
+                marginBottom: 14,
+                position: 'relative',
+                overflow: 'hidden',
+                borderRadius: 8,
                 cursor: 'pointer',
-                transition: 'background 0.25s, color 0.25s',
               }}
-              onMouseEnter={e => { e.currentTarget.style.background = '#C9A96E'; e.currentTarget.style.color = '#fff'; }}
-              onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#C9A96E'; }}
+              onClick={() => setSelectedIdx(index)}
             >
-              Load More — {count} / {TOTAL}
-            </button>
-          </div>
-        )}
+              <img
+                src={photo.url}
+                alt=""
+                loading="lazy"
+                decoding="async"
+                draggable={false}
+                style={{
+                  width: '100%', height: 'auto', display: 'block',
+                  transition: 'transform 0.5s ease',
+                }}
+                onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.07)'; }}
+                onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; }}
+              />
+
+              {/* Hover overlay */}
+              <div
+                className="group-hover:opacity-100"
+                style={{
+                  position: 'absolute', inset: 0,
+                  background: 'linear-gradient(to top, rgba(44,40,37,0.52) 0%, transparent 55%)',
+                  opacity: 0,
+                  transition: 'opacity 0.35s ease',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  pointerEvents: 'none',
+                }}
+              >
+                <div style={{
+                  width: 38, height: 38, borderRadius: '50%',
+                  border: '1px solid rgba(255,255,255,0.65)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  color: 'rgba(255,255,255,0.85)',
+                }}>
+                  <ZoomIn size={15} strokeWidth={1.5} />
+                </div>
+              </div>
+            </div>
+          ))}
+        </motion.div>
       </div>
 
       {/* ── Lightbox ── */}
