@@ -3,6 +3,81 @@ import { motion, AnimatePresence } from 'motion/react';
 import { X, ChevronLeft, ChevronRight, ZoomIn } from 'lucide-react';
 import { mauImages } from '../images';
 
+function PhotoCard({ photo, onClick }) {
+  const [loaded, setLoaded] = useState(false);
+
+  return (
+    <div
+      className="group"
+      style={{
+        breakInside: 'avoid',
+        marginBottom: 14,
+        position: 'relative',
+        borderRadius: 8,
+        overflow: 'hidden',
+        cursor: 'pointer',
+        background: '#DEDAD5',
+      }}
+      onClick={onClick}
+    >
+      {/* Shimmer skeleton */}
+      {!loaded && (
+        <div
+          className="animate-pulse"
+          style={{ aspectRatio: '3/4', width: '100%' }}
+        />
+      )}
+
+      {/* Image */}
+      <img
+        src={photo.url}
+        alt=""
+        loading="lazy"
+        decoding="async"
+        draggable={false}
+        style={{
+          width: '100%',
+          height: 'auto',
+          display: 'block',
+          opacity: loaded ? 1 : 0,
+          position: loaded ? 'relative' : 'absolute',
+          top: 0, left: 0,
+          transition: 'opacity 0.5s ease, transform 0.5s ease',
+        }}
+        onLoad={() => setLoaded(true)}
+        onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.07)'; }}
+        onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; }}
+      />
+
+      {/* Hover overlay */}
+      {loaded && (
+        <div
+          className="group-hover:opacity-100"
+          style={{
+            position: 'absolute', inset: 0,
+            background: 'linear-gradient(to top, rgba(44,40,37,0.52) 0%, transparent 55%)',
+            opacity: 0,
+            transition: 'opacity 0.35s ease',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            pointerEvents: 'none',
+          }}
+        >
+          <div style={{
+            width: 38, height: 38, borderRadius: '50%',
+            border: '1px solid rgba(255,255,255,0.65)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            color: 'rgba(255,255,255,0.85)',
+          }}>
+            <ZoomIn size={15} strokeWidth={1.5} />
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 const photos = mauImages.map(img => ({ id: img.id, url: img.url }));
 const TOTAL = photos.length;
 
@@ -97,57 +172,11 @@ export function PhotoGallery() {
           transition={{ duration: 0.6 }}
         >
           {photos.map((photo, index) => (
-            <div
+            <PhotoCard
               key={photo.id}
-              className="group"
-              style={{
-                breakInside: 'avoid',
-                marginBottom: 14,
-                position: 'relative',
-                overflow: 'hidden',
-                borderRadius: 8,
-                cursor: 'pointer',
-              }}
+              photo={photo}
               onClick={() => setSelectedIdx(index)}
-            >
-              <img
-                src={photo.url}
-                alt=""
-                loading="lazy"
-                decoding="async"
-                draggable={false}
-                style={{
-                  width: '100%', height: 'auto', display: 'block',
-                  transition: 'transform 0.5s ease',
-                }}
-                onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.07)'; }}
-                onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; }}
-              />
-
-              {/* Hover overlay */}
-              <div
-                className="group-hover:opacity-100"
-                style={{
-                  position: 'absolute', inset: 0,
-                  background: 'linear-gradient(to top, rgba(44,40,37,0.52) 0%, transparent 55%)',
-                  opacity: 0,
-                  transition: 'opacity 0.35s ease',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  pointerEvents: 'none',
-                }}
-              >
-                <div style={{
-                  width: 38, height: 38, borderRadius: '50%',
-                  border: '1px solid rgba(255,255,255,0.65)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  color: 'rgba(255,255,255,0.85)',
-                }}>
-                  <ZoomIn size={15} strokeWidth={1.5} />
-                </div>
-              </div>
-            </div>
+            />
           ))}
         </motion.div>
       </div>
