@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { mauImages } from '../images';
@@ -84,10 +84,27 @@ export function GallerySlider() {
   const goNext = useCallback(() => setCurrent(c => mod(c + 1, TOTAL)), []);
   const goPrev = useCallback(() => setCurrent(c => mod(c - 1, TOTAL)), []);
 
+  // Autoplay — paused while user is touching
+  const touching = useRef(false);
   useEffect(() => {
-    const id = setInterval(goNext, 4000);
+    const id = setInterval(() => { if (!touching.current) goNext(); }, 4000);
     return () => clearInterval(id);
   }, [goNext]);
+
+  // Swipe handling
+  const touchStartX = useRef(null);
+  const onTouchStart = useCallback(e => {
+    touching.current = true;
+    touchStartX.current = e.touches[0].clientX;
+  }, []);
+  const onTouchEnd = useCallback(e => {
+    touching.current = false;
+    if (touchStartX.current === null) return;
+    const delta = touchStartX.current - e.changedTouches[0].clientX;
+    if (delta > 50) goNext();
+    else if (delta < -50) goPrev();
+    touchStartX.current = null;
+  }, [goNext, goPrev]);
 
   return (
     <section
@@ -182,12 +199,15 @@ export function GallerySlider() {
 
       {/* ── Carousel track ── */}
       <div
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
         style={{
           position: 'relative',
           height: containerH,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          touchAction: 'pan-y',
         }}
       >
         <AnimatePresence>
