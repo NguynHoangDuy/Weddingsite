@@ -7,7 +7,7 @@ export function MusicToggle() {
   const audioRef = useRef(null);
 
   useEffect(() => {
-    const audio = new Audio('/music.mp3');
+    const audio = new Audio(import.meta.env.BASE_URL + 'music.mp3');
     audio.loop = true;
     audio.volume = 0.3;
     audioRef.current = audio;
