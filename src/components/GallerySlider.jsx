@@ -231,6 +231,8 @@ export function GallerySlider() {
                   src={images[idx]}
                   alt=""
                   draggable={false}
+                  loading={Math.abs(offset) <= 1 ? 'eager' : 'lazy'}
+                  decoding="async"
                   style={{
                     width: '100%',
                     height: '100%',

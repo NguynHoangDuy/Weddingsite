@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import bannerImg from '../assets/optimized/banner/banner.png';
+import bannerImg from '../assets/optimized/banner/banner.webp';
 import { COUPLE, CEREMONY } from '../config/wedding';
 
 export function HeroBanner() {
@@ -17,6 +17,8 @@ export function HeroBanner() {
         src={bannerImg}
         alt=""
         aria-hidden="true"
+        fetchpriority="low"
+        decoding="async"
         className="absolute bottom-0 right-[2%] md:right-[2%] h-[120%] w-auto object-contain object-bottom select-none pointer-events-none"
         style={{
           mixBlendMode: 'multiply',
@@ -30,6 +32,8 @@ export function HeroBanner() {
       <motion.img
         src={bannerImg}
         alt={COUPLE.names}
+        fetchpriority="high"
+        decoding="async"
         className="absolute bottom-0 right-[-20%] sm:right-[-5%] md:right-[8%] h-[85%] sm:h-[95%] md:h-[110%] w-auto object-contain object-bottom select-none pointer-events-none"
         style={{ mixBlendMode: 'multiply' }}
         initial={{ opacity: 0, x: 40 }}

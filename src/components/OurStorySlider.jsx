@@ -40,10 +40,21 @@ export function OurStorySlider() {
         <Slider ref={sliderRef} {...sliderSettings}>
           {slides.map((url, index) => (
             <div key={index}>
-              <div
-                className="h-[400px] md:h-[600px] lg:h-[700px] bg-cover bg-center"
-                style={{ backgroundImage: `url('${url}')` }}
-              />
+              <div className="relative h-[400px] md:h-[600px] lg:h-[700px] overflow-hidden">
+                <img
+                  src={url}
+                  alt=""
+                  loading={index === 0 ? 'eager' : 'lazy'}
+                  decoding="async"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    objectPosition: 'center',
+                    display: 'block',
+                  }}
+                />
+              </div>
             </div>
           ))}
         </Slider>
