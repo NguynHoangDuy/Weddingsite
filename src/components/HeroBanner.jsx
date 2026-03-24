@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import bannerImg from '../assets/optimized/banner/banner.webp';
+const bannerImg = 'https://res.cloudinary.com/dcn03k9k3/image/upload/q_auto,f_auto/banner_kvxjzv.webp';
 import { COUPLE, CEREMONY } from '../config/wedding';
 
 export function HeroBanner() {
