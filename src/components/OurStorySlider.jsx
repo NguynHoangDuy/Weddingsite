@@ -3,13 +3,13 @@ import Slider from 'react-slick';
 import { motion } from 'motion/react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { abImages, mauImages } from '../images';
+import { mauImages } from '../images';
 
 const slides = [
-  abImages[0]?.url,
   mauImages[0]?.url,
-  abImages[2]?.url,
+  mauImages[1]?.url,
   mauImages[2]?.url,
+  mauImages[3]?.url,
 ];
 
 const sliderSettings = {

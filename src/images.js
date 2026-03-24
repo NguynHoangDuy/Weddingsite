@@ -1,29 +1,3 @@
-import ab_1 from './assets/optimized/ab/ab-1.webp';
-import ab_2 from './assets/optimized/ab/ab-2.webp';
-import ab_3 from './assets/optimized/ab/ab-3.webp';
-import ab_4 from './assets/optimized/ab/ab-4.webp';
-import ab_5 from './assets/optimized/ab/ab-5.webp';
-import ab_6 from './assets/optimized/ab/ab-6.webp';
-import ab_7 from './assets/optimized/ab/ab-7.webp';
-import ab_8 from './assets/optimized/ab/ab-8.webp';
-import ab_9 from './assets/optimized/ab/ab-9.webp';
-import ab_10 from './assets/optimized/ab/ab-10.webp';
-import ab_11 from './assets/optimized/ab/ab-11.webp';
-
-export const abImages = [
-  { id: 1, url: ab_1 },
-  { id: 2, url: ab_2 },
-  { id: 3, url: ab_3 },
-  { id: 4, url: ab_4 },
-  { id: 5, url: ab_5 },
-  { id: 6, url: ab_6 },
-  { id: 7, url: ab_7 },
-  { id: 8, url: ab_8 },
-  { id: 9, url: ab_9 },
-  { id: 10, url: ab_10 },
-  { id: 11, url: ab_11 },
-];
-
 const CDN = 'https://res.cloudinary.com/dcn03k9k3/image/upload/q_auto,f_auto';
 
 export const mauImages = [
